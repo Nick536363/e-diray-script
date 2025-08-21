@@ -3,27 +3,7 @@ from random import choice
 from django.core.exceptions import ObjectDoesNotExitst
 
 
-def get_pupil_by_name(name: str):
-    try:
-        return Schoolkid.objects.get(full_name__contains=name)
-    except ObjectDoesNotExitst:
-        print("Такого ученика нет в базе")
-
-
-def fix_marks(schoolkid: str):
-    pupil = get_pupil_by_name(schoolkid)
-    bad_marks = Mark.objects.filter(schoolkid=pupil, points__in=[2,3])
-    bad_marks.update(points=5)
-
-
-def remove_chastisements(schoolkid: str):
-    pupil = get_pupil_by_name(schoolkid)
-    chasitsements = Chastisement.objects.filter(schoolkid=name)
-    chasitsements.delete()
-
-
-def create_commendation(schoolkid: str, subject: str):
-    phrases = [
+COMPLIMENTS = [
         "Молодец!",
         "Отлично!",
         "Хорошо!",
@@ -55,11 +35,33 @@ def create_commendation(schoolkid: str, subject: str):
         "Ты многое сделал, я это вижу!",
         "Теперь у тебя точно все получится!"
     ]
+
+
+def get_pupil_by_name(name: str):
+    try:
+        return Schoolkid.objects.get(full_name__contains=name)
+    except ObjectDoesNotExitst:
+        print("Такого ученика нет в базе")
+
+
+def fix_marks(schoolkid: str):
+    pupil = get_pupil_by_name(schoolkid)
+    bad_marks = Mark.objects.filter(schoolkid=pupil, points__in=[2,3])
+    bad_marks.update(points=5)
+
+
+def remove_chastisements(schoolkid: str):
+    pupil = get_pupil_by_name(schoolkid)
+    chasitsements = Chastisement.objects.filter(schoolkid=name)
+    chasitsements.delete()
+
+
+def create_commendation(schoolkid: str, subject: str, compliments: list):
     pupil = get_pupil_by_name(schoolkid)
     try:
         subj = Subject.objects.get(title__contains=subject, year_of_study=pupil.year_of_study)
         lesson = choice(Lesson.objects.filter(year_of_study=pupil.year_of_study, group_letter=pupil.group_letter, subject=subj))
     except ObjectDoesNotExitst:
         print("Такого урока не существует")
-    commendation_text = choice(phrases)
+    commendation_text = choice(compliments)
     Commendation.objects.create(text=commendation_text, created=lesson.date, schoolkid=pupil, subject=subj, teacher=lesson.teacher)

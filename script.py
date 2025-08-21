@@ -60,7 +60,7 @@ def create_commendation(schoolkid: str, subject: str, compliments: list):
     pupil = get_pupil_by_name(schoolkid)
     try:
         subj = Subject.objects.get(title__contains=subject, year_of_study=pupil.year_of_study)
-        lesson = choice(Lesson.objects.filter(year_of_study=pupil.year_of_study, group_letter=pupil.group_letter, subject=subj))
+        lesson = choice(Lesson.objects.filter(year_of_study=pupil.year_of_study, group_letter=pupil.group_letter, subject=subj).order_by("date"))
     except ObjectDoesNotExitst:
         print("Такого урока не существует")
     commendation_text = choice(compliments)

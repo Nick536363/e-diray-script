@@ -1,8 +1,13 @@
 from datacenter.models import Schoolkid, Mark, Chastisement, Lesson, Subject
 from random import choice
+from django.core.exceptions import ObjectDoesNotExitst
+
 
 def get_pupil_by_name(name: str):
-    return Schoolkid.objects.get(full_name__contains=name)
+    try:
+        return Schoolkid.objects.get(full_name__contains=name)
+    except ObjectDoesNotExitst:
+        print("Такого ученика нет в базе")
 
 
 def fix_marks(schoolkid: str):

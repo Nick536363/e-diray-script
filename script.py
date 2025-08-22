@@ -1,4 +1,4 @@
-from datacenter.models import Schoolkid, Mark, Chastisement, Lesson, Subject
+from datacenter.models import Schoolkid, Mark, Chastisement, Lesson, Subject, Commendation
 from random import choice
 from django.core.exceptions import ObjectDoesNotExitst
 

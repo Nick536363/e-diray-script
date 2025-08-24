@@ -54,7 +54,7 @@ def fix_marks(schoolkid: str):
 
 def remove_chastisements(schoolkid: str):
     pupil = get_pupil_by_name(schoolkid)
-    chasitsements = Chastisement.objects.filter(schoolkid=name)
+    chasitsements = Chastisement.objects.filter(schoolkid=pupil)
     chasitsements.delete()
 
 

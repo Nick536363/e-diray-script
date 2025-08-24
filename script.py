@@ -1,7 +1,6 @@
 from datacenter.models import Schoolkid, Mark, Chastisement, Lesson, Subject, Commendation
 from random import choice
 from django.core.exceptions import ObjectDoesNotExitst, MultipleObjectsReturned
-from django.shortcuts import get_object_or_404
 
 
 COMPLIMENTS = [
@@ -40,7 +39,7 @@ COMPLIMENTS = [
 
 def get_pupil_by_name(name: str):
     try:
-        return Schoolkid.objects.get_object_or_404(full_name__contains=name)
+        return Schoolkid.objects.get(full_name__contains=name)
     except ObjectDoesNotExitst:
         print("Такого ученика нет в базе")
     except MultipleObjectsReturned:
